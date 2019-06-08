@@ -1,0 +1,51 @@
+{{extend '../layout.html'}}
+{{block 'content'}}
+<div class="container-fluid">
+  <div class="page-title">
+    <h1>分类目录</h1>
+  </div>
+  <!-- 有错误信息时展示 -->
+  <!-- <div class="alert alert-danger">
+    <strong>错误！</strong>发生XXX错误
+  </div> -->
+  <div class="row">
+
+    <div class="col-md-8">
+      <div class="page-action">
+        <!-- show when multiple checked -->
+        <a class="btn btn-danger btn-sm" href="javascript:;" style="display: none">批量删除</a>
+      </div>
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="text-center" width="40"><input type="checkbox"></th>
+            <th>栏目名称</th>
+            <th>栏目图标</th>
+            <th>创建时间</th>
+            <th class="text-center" width="100">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{each arr}}
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>{{$value.cate_name}}</td>
+            <!-- <td>{{$value.cate_icon}}</td> -->
+            <td><i class="fa fa-{{$value.cate_icon}}"></i></td>
+            <td>{{$value.cate_addtime}}</td>
+            <td>
+              <a href="/admin/cate/edit.html?id={{$value.cate_id}}">编辑</a>
+              <a href="/admin/cate/delete?id={{$value.cate_id}}" onclick="return confirm('你确定要删除吗？');">删除</a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{{/block}}
+
+{{block 'js'}}
+
+{{/block}}

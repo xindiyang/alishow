@@ -1,0 +1,49 @@
+{{extend '../layout.html'}}
+
+{{block 'content'}}
+<div class="container-fluid">
+  <div class="page-title">
+    <h1>编辑栏目</h1>
+  </div>
+  <!-- 有错误信息时展示 -->
+  <!-- <div class="alert alert-danger">
+    <strong>错误！</strong>发生XXX错误
+  </div> -->
+  <div class="row">
+    <div class="col-md-4">
+      <form id="mainForm">
+        <h2>编辑栏目</h2>
+        <div class="form-group">
+          <label for="name">名称</label>
+          <input id="name" class="form-control" name="cate_name" type="text" placeholder="分类名称" value="{{row.cate_name}}">
+        </div>
+        <div class="form-group">
+          <label for="icon">图标</label>
+          <input id="icon" class="form-control" name="cate_icon" type="text" placeholder="图标" value="{{row.cate_icon}}">
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="cate_id" value="{{row.cate_id}}">
+          <button id="addBtn" class="btn btn-primary" type="button">确定保存</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+{{/block}}
+
+{{block 'js'}}
+<script>
+  $('#addBtn').click(function () {
+    $.post('/admin/cate/update', $('form').serialize(), function (res) {
+      // res ===> {code: 200, message: '更新栏目成功'}
+      // res ===> {code: 201, message: '更新栏目失败'}
+      alert(res.message);
+      if (res.code === 200) {
+        // 跳转到栏目列表页
+        location.href = '/admin/cate/cate.html';
+      }
+    }, 'json');
+  });
+</script>
+{{/block}}

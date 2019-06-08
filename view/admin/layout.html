@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard &laquo; Admin</title>
+  <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <script src="assets/vendors/nprogress/nprogress.js"></script>
+</head>
+
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <button class="btn btn-default navbar-btn fa fa-bars"></button>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="profile.html"><i class="fa fa-user"></i>个人中心</a></li>
+        <li><a id="logout" href="javascript:;"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+
+    {{block 'content'}} {{/block}}
+
+  </div>
+
+  <div class="aside">
+    <div class="profile">
+      <img class="avatar" src="assets/img/avatar.jpg">
+      <h3 class="name">布头儿</h3>
+    </div>
+    <ul class="nav">
+      <li>
+        <a href="index.html"><i class="fa fa-dashboard"></i>仪表盘</a>
+      </li>
+      <li class="active">
+        <a href="#menu-posts" data-toggle="collapse">
+          <i class="fa fa-thumb-tack"></i>文章<i class="fa fa-angle-right"></i>
+        </a>
+        <ul id="menu-posts" class="collapse in">
+          <li><a href="/admin/post/posts.html">所有文章</a></li>
+          <li><a href="/admin/post/addpost.html">写文章</a></li>
+          <li><a href="/admin/cate/addcate.html">添加新栏目</a></li>
+          <li class="active"><a href="/admin/cate/cate.html">栏目列表</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="comment/comments.html"><i class="fa fa-comments"></i>评论</a>
+      </li>
+      <li>
+        <a href="#menu-user" data-toggle="collapse">
+          <i class="fa fa-users"></i>用户<i class="fa fa-angle-right"></i>
+        </a>
+        <ul id="menu-user" class="collapse">
+          <li><a href="/admin/user/users.html">管理员列表</a></li>
+          <li><a href="/admin/user/adduser.html">添加管理员</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#menu-settings" class="collapsed" data-toggle="collapse">
+          <i class="fa fa-cogs"></i>设置<i class="fa fa-angle-right"></i>
+        </a>
+        <ul id="menu-settings" class="collapse">
+          <li><a href="other/nav-menus.html">导航菜单</a></li>
+          <li><a href="/admin/other/slides.html">图片轮播</a></li>
+          <li><a href="other/settings.html">网站设置</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <script src="assets/vendors/jquery/jquery.js"></script>
+  <script src="assets/vendors/bootstrap/js/bootstrap.js"></script>
+
+  {{block 'js'}} {{/block}}
+
+  <script>
+    // 当点击退出的时候，发送请求，完成退出
+    $('#logout').click(function () {
+      $.post('/api/login/logout', function (res) {
+        alert(res.message);
+        if (res.code === 200) {
+          location.href = '/admin/login.html';
+        }
+      }, 'json');
+    });
+  </script>
+  <script>NProgress.done()</script>
+</body>
+
+</html>
